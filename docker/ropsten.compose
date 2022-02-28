@@ -1,0 +1,9 @@
+FROM scholtz2/ubuntu-dev-base:1.0.0-stable
+
+WORKDIR /app
+COPY package.json .
+RUN npm install
+RUN npm fund
+RUN npm install truffle -g 
+RUN npm install ganache-cli -g 
+COPY . .

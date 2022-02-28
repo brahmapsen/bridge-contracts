@@ -1,0 +1,15 @@
+FROM scholtz2/ubuntu-dev-base:1.0.0-stable
+
+WORKDIR /usr/src/app
+COPY package.json .
+RUN npm install
+RUN npm fund
+WORKDIR /usr/src/app/soldier
+COPY soldier/package.json .
+RUN npm install
+RUN npm fund
+WORKDIR /usr/src/app
+COPY . .
+WORKDIR /usr/src/app/soldier
+
+CMD [ "/bin/bash", "./run-eth2algo.sh" ]

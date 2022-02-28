@@ -1,0 +1,8 @@
+FROM ubuntu:latest
+USER root
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt update && apt dist-upgrade -y && apt install -y build-essential mc wget telnet git curl iotop atop vim python3 && apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,dpkg,cache,log}/
+RUN curl -sL https://deb.nodesource.com/setup_16.x  | bash -
+RUN apt update && apt -y install nodejs && rm -rf /var/lib/{apt,dpkg,cache,log}/
+
+RUN groupadd --gid 1000 app && useradd --uid 1000 --gid app --shell /bin/bash -d /app app

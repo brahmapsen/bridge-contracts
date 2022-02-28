@@ -1,0 +1,17 @@
+version: '3'
+services:
+  ganache:
+    image: scholtz2/zerobridge-contract-ropsten:dev
+    command: bash -c "ganache-cli -h 0.0.0.0"
+    ports:
+      - "8545:8545"
+  truffle_simpletests:
+    image: scholtz2/zerobridge-contract-ropsten:dev
+    environment:
+    - DEVELOPMENT_HOST=ganache
+    command: bash -c "sleep 2 && pwd && ls && cat truffle-config.js && truffle test --network cicd"
+    depends_on:
+    - ganache
+    working_dir: "/app"
+    volumes:
+      - ".:/app"
